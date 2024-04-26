@@ -33,29 +33,23 @@ const school = {
   };
   
 
-
-  function countCalculation(departments){
-    let mathTeachersCount  = math.teachers
-    let historyTeachersCount = history.teachers
-    let mathStudentsCount =  math.students
-    let historyStudentsCount = history.students
-
-    let obj = {
-      mathTeachersCount ,
-      historyTeachersCount,
-      mathStudentsCount,
-      historyStudentsCount
-    }
-    
-    return obj
-
+  function countCalculation(school){
+    const {
+      departments : {
+        math : {teachers : mathTeachersCount , students : mathStudentsCount},
+        history : {teachers : historyTeachersCount , students : historyStudentsCount}
+      }
+    } = school
+   
+    return  {mathTeachersCount , mathStudentsCount , historyTeachersCount , historyStudentsCount}
   }
+
   console.log(countCalculation(school))
 
 
   // -----------------------------------------------
 
-function findTopStudent(obj , courses ){
+function findTopStudent(obj , course){
     let max = obj.students[0]
     obj.students.forEach((el , i)=>{
         if(el.scores.math > max.scores.math){
@@ -69,19 +63,25 @@ console.log(findTopStudent(school , 'math'))
 
 // --------
 
+let addDept = {arts : {teachers : 5 , students:50}}
 
-function addNewDept(obj , newDept){
-  obj.departments = {...obj , newDept}
-   return obj
+function addNewDept(school , addDept){
+      const update = {...school.departments , ...addDept}
+
+      return {...school , departments : addDept}
 }
 
-console.log(addNewDept(school , {arts : {teachers : 5 , students:50}}))
+console.log(addNewDept(school , addDept))
 
 // --------------
 
 
-function highestStudentCountDepartment(obj){
- console.log(obj)
+function highestStudentCountDepartment(school){
+ 
+  let { departments} = school
+  
+  return departments
+ 
 }
 console.log(highestStudentCountDepartment(school));
 
